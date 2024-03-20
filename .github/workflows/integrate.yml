@@ -73,5 +73,6 @@ jobs:
       # delete the branch
       - name: Delete the branch
         run: |
+          git switch develop
           git branch -d integrateDevelop_${{ env.CURRENT_DATETIME }}
           git push origin -d integrateDevelop_${{ env.CURRENT_DATETIME }}
