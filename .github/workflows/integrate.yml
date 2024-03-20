@@ -67,5 +67,6 @@ jobs:
       # merge those pull requests
       - name: Merge the pull requests
         run: |
+          git switch develop
           gh pr merge ${{steps.pr-step2.outputs.PR_URI_STEP2}} --merge --delete-branch
           gh pr merge ${{steps.pr-step1-change.outputs.PR_URI_STEP1_CHANGE}} --merge --delete-branch
