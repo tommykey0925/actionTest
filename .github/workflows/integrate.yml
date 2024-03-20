@@ -58,7 +58,7 @@ jobs:
       # get target pull requests
       - name: Get target pull requests
         run: |
-          echo ${{ github}}
+          echo ${{ github }}
 
       # check if the pull request does not contain conflicts
 
