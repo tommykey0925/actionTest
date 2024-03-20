@@ -61,6 +61,8 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
       # get target pull requests
       - name: Get target pull requests
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}      
         run: |
           echo "allPR=empty" >> $GITHUB_ENV
           allPR = `gh api \
@@ -78,8 +80,6 @@ jobs:
 
       # delete the branch if both pull request was closed
       - name: Delete the branch
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           git switch develop
           git branch -d integrateDevelop_${{ env.CURRENT_DATETIME }}
