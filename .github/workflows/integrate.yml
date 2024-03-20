@@ -34,13 +34,13 @@ jobs:
           git push -u origin integrateDevelop_${{ env.CURRENT_DATETIME }}
       # open pull requests to integrate
       - name: Create pull request for develop-step2
-        uses: repo-sync/pull-request@v3
+        uses: repo-sync/pull-request@v2
         with:
           source_branch: integrateDevelop_${{ env.CURRENT_DATETIME }}
           destination_branch: develop-step2
           pr_title: integrateDevelop_step2_${{ env.CURRENT_DATETIME }}
       - name: Create pull request for develop-step1-change
-        uses: repo-sync/pull-request@v3
+        uses: repo-sync/pull-request@v2
         with:
           source_branch: integrateDevelop_${{ env.CURRENT_DATETIME }}
           destination_branch: develop-step1-change
