@@ -55,7 +55,12 @@ jobs:
           destination_branch: develop-step1-change
           pr_title: integrateDevelop_step1-change_${{ env.CURRENT_DATETIME }}
           github_token: ${{ secrets.GITHUB_TOKEN }}
-      # for each pull request
+      # get target pull requests
+      - name: Get target pull requests
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          echo ${{ github.event.pull_request.title }}
 
       # check if the pull request does not contain conflicts
 
