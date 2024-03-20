@@ -64,13 +64,13 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}      
         run: |
-          echo "allPR=(empty)" >> $GITHUB_ENV
-          allPR=`gh api \
+          echo "allPr=(empty)" >> $GITHUB_ENV
+          allPr=`gh api \
             -H "Accept: application/vnd.github+json" \
             -H "X-GitHub-Api-Version: 2022-11-28" \
             /repos/tommykey0925/actionTest/pulls`
-          echo "allPR" >> $GITHUB_ENV
-          echo ${{ env.allPR }}
+          echo "allPr" >> $GITHUB_ENV
+          echo ${{ env.allPr }}
 
       # check if the pull request does not contain conflicts
 
