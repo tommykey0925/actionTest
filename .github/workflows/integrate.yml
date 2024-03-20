@@ -49,5 +49,9 @@ jobs:
       - name: Open pull requests
         run: |
           git switch integrateDevelop_${{ env.CURRENT_DATETIME }}
-          gh pr create --base develop-step2 --title integrateDevelop_step2_${{ env.CURRENT_DATETIME }} --body "auto-generated pull request to integrate develop branches"
-          gh pr create --base develop-step1-change --title integrateDevelop_step1-change_${{ env.CURRENT_DATETIME }} --body "auto-generated pull request to integrate develop branches"
+          gh pr create --base develop-step2 \
+            --title integrateDevelop_step2_${{ env.CURRENT_DATETIME }} \
+            --body "auto-generated pull request to integrate develop branches"
+          gh pr create --base develop-step1-change \
+            --title integrateDevelop_step1-change_${{ env.CURRENT_DATETIME }} \
+            --body "auto-generated pull request to integrate develop branches"
