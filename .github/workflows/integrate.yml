@@ -65,6 +65,7 @@ jobs:
       # merge those pull requests
       - name: Merge the pull requests
         run: |
-          git switch -c develop-step1-change origin/develop-step1-change
+          git fetch origin
+          git switch -c develop-step2 origin/develop-step2
           TES=gh pr status -c
           echo $TES
