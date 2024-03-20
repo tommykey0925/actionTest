@@ -55,7 +55,7 @@ jobs:
           destination_branch: develop-step1-change
           pr_title: integrateDevelop_step1-change_${{ env.CURRENT_DATETIME }}
           github_token: ${{ secrets.GITHUB_TOKEN }}
-      # get target pull requests
+      # get target pull request
       - name: Get target pull requests
         run: |
           echo ${{ github }}
