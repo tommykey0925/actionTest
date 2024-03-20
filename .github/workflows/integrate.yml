@@ -14,7 +14,8 @@ on:
 # give permissions to this workflow
 permissions:
   contents: write
-  pull-requests: write|read
+  pull-requests: write
+  pull-requests: read
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
