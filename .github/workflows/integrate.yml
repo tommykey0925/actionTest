@@ -47,6 +47,7 @@ jobs:
           git push -u origin integrateDevelop_${{ env.CURRENT_DATETIME }}
       # open pull requests to integrate
       - name: Open a pull request for step2
+        id: pr-step2
         run: |
           git switch integrateDevelop_${{ env.CURRENT_DATETIME }}
           PR_URI_STEP2=$(gh pr create \
@@ -55,6 +56,7 @@ jobs:
             --body "auto-generated pull request to integrate develop branches")
           echo "PR_URI_STEP2=$PR_URI_STEP2" >> "$GITHUB_OUTPUT"
       - name: Open a pull request for step1 change
+        id: pr-step1-change
         run: |
           git switch integrateDevelop_${{ env.CURRENT_DATETIME }}
           PR_URI_STEP1_CHANGE=$(gh pr create \
@@ -67,5 +69,7 @@ jobs:
         run: |
           git fetch origin
           git switch -c develop-step2 origin/develop-step2
-          TES=gh pr status -c
+          TES=`gh pr status -c`
           echo $TES
+          gh pr merge ${{steps.pr-step2.outputs.PR_URI_STEP2}} --merge
+          gh pr merge ${{steps.pr-step1-change.outputs.PR_URI_STEP1_CHANGE}} --merge
