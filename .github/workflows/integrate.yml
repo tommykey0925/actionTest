@@ -64,15 +64,15 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}      
         run: |
-          echo "allPr=(empty)" >> $GITHUB_ENV
-          allPr=`gh api \
+          echo "ALL_PR=(empty)" >> $GITHUB_ENV
+          ALL_PR=`gh api \
             -H "Accept: application/vnd.github+json" \
             -H "X-GitHub-Api-Version: 2022-11-28" \
             /repos/tommykey0925/actionTest/pulls`
-          echo "allPr" >> $GITHUB_ENV
-          echo ${{ env.allPr }}
+          echo "ALL_PR" >> $GITHUB_ENV
+          echo ${{ env.ALL_PR }}
 
-      # check if the pull request does not contain conflicts
+      # check if the pull request is mergeable
 
       # approve the PR
 
