@@ -64,9 +64,12 @@ jobs:
             --title integrateDevelop_step1-change_${{ env.CURRENT_DATETIME }} \
             --body "auto-generated pull request to integrate develop branches")
           echo "PR_URI_STEP1_CHANGE=$PR_URI_STEP1_CHANGE" >> "$GITHUB_OUTPUT"
-      # merge those pull requests
+      # merge those pull requests and delete the branch
       - name: Merge the pull requests
         run: |
+          gh pr merge ${{steps.pr-step2.outputs.PR_URI_STEP2}} --merge
+          gh pr merge ${{steps.pr-step1-change.outputs.PR_URI_STEP1_CHANGE}} --merge
           git switch develop
-          gh pr merge ${{steps.pr-step2.outputs.PR_URI_STEP2}} --merge --delete-branch
-          gh pr merge ${{steps.pr-step1-change.outputs.PR_URI_STEP1_CHANGE}} --merge --delete-branch
+          git pull origin
+          git branch -d integrateDevelop_${{ env.CURRENT_DATETIME }}
+          git push origin -d integrateDevelop_${{ env.CURRENT_DATETIME }}
