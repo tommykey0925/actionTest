@@ -46,23 +46,8 @@ jobs:
           git switch -c integrateDevelop_${{ env.CURRENT_DATETIME }}
           git push -u origin integrateDevelop_${{ env.CURRENT_DATETIME }}
       # open pull requests to integrate
-      - name: Create pull request for develop-step2
-        # uses: repo-sync/pull-request@v2
-        # with:
-        #   source_branch: integrateDevelop_${{ env.CURRENT_DATETIME }}
-        #   destination_branch: develop-step2
-        #   pr_title: integrateDevelop_step2_${{ env.CURRENT_DATETIME }}
-        #   github_token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Open pull requests
         run: |
           git switch integrateDevelop_${{ env.CURRENT_DATETIME }}
           gh pr create --base develop-step2 --title integrateDevelop_step2_${{ env.CURRENT_DATETIME }} --body "auto-generated pull request to integrate develop branches"
-      - name: Create pull request for develop-step1-change
-        # uses: repo-sync/pull-request@v2
-        # with:
-        #   source_branch: integrateDevelop_${{ env.CURRENT_DATETIME }}
-        #   destination_branch: develop-step1-change
-        #   pr_title: integrateDevelop_step1-change_${{ env.CURRENT_DATETIME }}
-        #   github_token: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          git switch integrateDevelop_${{ env.CURRENT_DATETIME }}
           gh pr create --base develop-step1-change --title integrateDevelop_step1-change_${{ env.CURRENT_DATETIME }} --body "auto-generated pull request to integrate develop branches"
