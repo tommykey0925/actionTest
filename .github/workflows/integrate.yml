@@ -65,12 +65,12 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}      
         run: |
           {
-            echo 'ALL_PR<<EOF'
+            echo 'ALL_PR<<}'
             gh api \
               -H "Accept: application/vnd.github+json" \
               -H "X-GitHub-Api-Version: 2022-11-28" \
               /repos/tommykey0925/actionTest/pulls
-            echo EOF
+            echo }
           } >> $GITHUB_ENV
           echo ${{ env.ALL_PR }}
 
