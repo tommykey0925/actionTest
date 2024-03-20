@@ -19,6 +19,9 @@ permissions:
   contents: write
   pull-requests: write
 
+env:
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "integrateDevelop"
@@ -38,47 +41,28 @@ jobs:
         run: echo "CURRENT_DATETIME=$(date +'%Y%m%dT%H%M%S')" >> $GITHUB_ENV
       # create a branch, the name of which includes current datetime
       - name: Create new branch
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           git switch develop
           git switch -c integrateDevelop_${{ env.CURRENT_DATETIME }}
           git push -u origin integrateDevelop_${{ env.CURRENT_DATETIME }}
       # open pull requests to integrate
       - name: Create pull request for develop-step2
-        uses: repo-sync/pull-request@v2
-        with:
-          source_branch: integrateDevelop_${{ env.CURRENT_DATETIME }}
-          destination_branch: develop-step2
-          pr_title: integrateDevelop_step2_${{ env.CURRENT_DATETIME }}
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+        # uses: repo-sync/pull-request@v2
+        # with:
+        #   source_branch: integrateDevelop_${{ env.CURRENT_DATETIME }}
+        #   destination_branch: develop-step2
+        #   pr_title: integrateDevelop_step2_${{ env.CURRENT_DATETIME }}
+        #   github_token: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git switch integrateDevelop_${{ env.CURRENT_DATETIME }}
+          gh pr create --base develop-step2 --title integrateDevelop_step2_${{ env.CURRENT_DATETIME }} --body "auto-generated pull request to integrate develop branches"
       - name: Create pull request for develop-step1-change
-        uses: repo-sync/pull-request@v2
-        with:
-          source_branch: integrateDevelop_${{ env.CURRENT_DATETIME }}
-          destination_branch: develop-step1-change
-          pr_title: integrateDevelop_step1-change_${{ env.CURRENT_DATETIME }}
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-      # get target pull requests
-      - name: Get target pull requests
+        # uses: repo-sync/pull-request@v2
+        # with:
+        #   source_branch: integrateDevelop_${{ env.CURRENT_DATETIME }}
+        #   destination_branch: develop-step1-change
+        #   pr_title: integrateDevelop_step1-change_${{ env.CURRENT_DATETIME }}
+        #   github_token: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          echo "allPR=empty" >> $GITHUB_ENV
-          allPR = `gh api \
-            -H "Accept: application/vnd.github+json" \
-            -H "X-GitHub-Api-Version: 2022-11-28" \
-            /repos/tommykey0925/actionTest/pulls`
-          echo "allPR" >> $GITHUB_ENV
-          echo ${{ env.allPR }}
-
-      # check if the pull request does not contain conflicts
-
-      # approve the PR
-
-      # auto-merge
-
-      # delete the branch if both pull request was closed
-      - name: Delete the branch
-        run: |
-          git switch develop
-          git branch -d integrateDevelop_${{ env.CURRENT_DATETIME }}
-          git push origin -d integrateDevelop_${{ env.CURRENT_DATETIME }}
+          git switch integrateDevelop_${{ env.CURRENT_DATETIME }}
+          gh pr create --base develop-step1-change --title integrateDevelop_step1-change_${{ env.CURRENT_DATETIME }} --body "auto-generated pull request to integrate develop branches"
