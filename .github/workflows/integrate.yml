@@ -67,9 +67,5 @@ jobs:
       # merge those pull requests
       - name: Merge the pull requests
         run: |
-          git fetch origin
-          git switch -c develop-step2 origin/develop-step2
-          TES=`gh pr status -c`
-          echo $TES
-          gh pr merge ${{steps.pr-step2.outputs.PR_URI_STEP2}} --merge
-          gh pr merge ${{steps.pr-step1-change.outputs.PR_URI_STEP1_CHANGE}} --merge
+          gh pr merge ${{steps.pr-step2.outputs.PR_URI_STEP2}} --merge --delete-branch
+          gh pr merge ${{steps.pr-step1-change.outputs.PR_URI_STEP1_CHANGE}} --merge --delete-branch
