@@ -64,8 +64,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}      
         run: |
-          echo "allPR=empty" >> $GITHUB_ENV
-          allPR = `gh api \
+          echo "allPR=(empty)" >> $GITHUB_ENV
+          allPR=`gh api \
             -H "Accept: application/vnd.github+json" \
             -H "X-GitHub-Api-Version: 2022-11-28" \
             /repos/tommykey0925/actionTest/pulls`
