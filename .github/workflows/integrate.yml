@@ -46,12 +46,25 @@ jobs:
           git switch -c integrateDevelop_${{ env.CURRENT_DATETIME }}
           git push -u origin integrateDevelop_${{ env.CURRENT_DATETIME }}
       # open pull requests to integrate
-      - name: Open pull requests
+      - name: Open a pull request for step2
         run: |
           git switch integrateDevelop_${{ env.CURRENT_DATETIME }}
-          gh pr create --base develop-step2 \
+          PR_URI_STEP2=$(gh pr create \
+            --base develop-step2 \
             --title integrateDevelop_step2_${{ env.CURRENT_DATETIME }} \
-            --body "auto-generated pull request to integrate develop branches"
-          gh pr create --base develop-step1-change \
+            --body "auto-generated pull request to integrate develop branches")
+          echo "PR_URI_STEP2=$PR_URI_STEP2" >> "$GITHUB_OUTPUT"
+      - name: Open a pull request for step1 change
+        run: |
+          git switch integrateDevelop_${{ env.CURRENT_DATETIME }}
+          PR_URI_STEP1_CHANGE=$(gh pr create \
+            --base develop-step1-change \
             --title integrateDevelop_step1-change_${{ env.CURRENT_DATETIME }} \
-            --body "auto-generated pull request to integrate develop branches"
+            --body "auto-generated pull request to integrate develop branches")
+          echo "PR_URI_STEP1_CHANGE=$PR_URI_STEP1_CHANGE" >> "$GITHUB_OUTPUT"
+      # merge those pull requests
+      - name: Merge the pull requests
+        run: |
+          git switch -c develop-step1-change origin/develop-step1-change
+          TES=gh pr status -c
+          echo $TES
