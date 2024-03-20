@@ -58,8 +58,7 @@ jobs:
       # get target pull requests
       - name: Get target pull requests
         run: |
-          echo "pr_all=${{ github.event.pull_request }}" >> $GITHUB_ENV
-          echo ${{env.pr_all}}
+          echo ${{ github.event.pull_request.title }}
 
       # check if the pull request does not contain conflicts
 
