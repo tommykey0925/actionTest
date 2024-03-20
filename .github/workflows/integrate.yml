@@ -57,7 +57,9 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
       # get target pull requests
       - name: Get target pull requests
-        run: echo "${{ github.event.pull_request }}"
+        run: |
+          echo "pr_all=${{ github.event.pull_request }}" >> $GITHUB_ENV
+          echo ${{env.pr_all}}
 
       # check if the pull request does not contain conflicts
 
