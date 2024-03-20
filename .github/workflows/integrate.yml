@@ -5,7 +5,7 @@ run-name: IntegrateDevelop
 
 # Controls when the workflow will run
 on:
-  # Triggers the workflow on push or pull request events but only for the "main" branch
+  # Triggers the workflow on push or pull request events but only for the "develop" branch
   pull_request:
     branches:
       - develop
@@ -69,3 +69,9 @@ jobs:
       # approve the PR
 
       # auto-merge
+
+      # delete the branch
+      - name: Delete the branch
+        run: |
+          git branch -d integrateDevelop_${{ env.CURRENT_DATETIME }}
+          git push origin -d integrateDevelop_${{ env.CURRENT_DATETIME }}
