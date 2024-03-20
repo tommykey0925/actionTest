@@ -62,7 +62,13 @@ jobs:
       # get target pull requests
       - name: Get target pull requests
         run: |
-          echo "${{ github.event }}"
+          echo "allPR=empty" >> $GITHUB_ENV
+          allPR = `gh api \
+            -H "Accept: application/vnd.github+json" \
+            -H "X-GitHub-Api-Version: 2022-11-28" \
+            /repos/tommykey0925/actionTest/pulls`
+          echo "allPR" >> $GITHUB_ENV
+          echo ${{ env.allPR }}
 
       # check if the pull request does not contain conflicts
 
@@ -70,8 +76,9 @@ jobs:
 
       # auto-merge
 
-      # delete the branch
+      # delete the branch if both pull request was closed
       - name: Delete the branch
         run: |
+          git switch develop
           git branch -d integrateDevelop_${{ env.CURRENT_DATETIME }}
           git push origin -d integrateDevelop_${{ env.CURRENT_DATETIME }}
