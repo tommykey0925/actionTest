@@ -57,6 +57,8 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
       # get target pull requests
       - name: Get target pull requests
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           echo ${{ github.event.pull_request.title }}
 
