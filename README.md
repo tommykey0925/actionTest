@@ -1,2 +1,2 @@
 # actionTest
-test merge step
+test close
